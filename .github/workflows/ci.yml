@@ -11,24 +11,23 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Create artifacts directory
         run: mkdir testArtifacts
 
-      # Config environment
       - name: Install Node
-        uses: actions/setup-node@v3.4.1
+        uses: actions/setup-node@v4
 
       - name: Install Newman + Reporter
         run: |
           npm install -g newman
           npm install -g newman-reporter-htmlextra
 
-      - name: Run Tests (Newman)
+      - name: Run Newman Tests
         run: >
-          newman run ServeRest.postman_collection.json
-          -e serveRest_env.postman_environment.json
+          newman run serverest.postman_collection.json
+          -e ServeRest.postman_environment.json
           -r cli,htmlextra
           --reporter-htmlextra-export testArtifacts/report.html
 
